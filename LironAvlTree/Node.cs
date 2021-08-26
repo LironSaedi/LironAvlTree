@@ -19,7 +19,6 @@ namespace LironAvlTree
             return false;
 
         }
-
         public int ChildCount()
         {
             int count = 0;
@@ -35,6 +34,36 @@ namespace LironAvlTree
             }
 
             return count;
+        }
+        public int Height()
+        {
+
+
+            if (Right == null && Left == null)
+            {
+                return 1;
+            }
+
+            else if (Right == null)
+            {
+                return Left.Height() + 1;
+            }
+
+            else if (Left == null)
+            {
+                return Right.Height() + 1;
+            }
+
+            int height = Math.Max(Right.Height(), Left.Height()) + 1;
+            return height;
+        }
+
+        public int Balence()
+        {
+            // check for left or right null
+            // balance is the other node's height if null
+            int height = Right.Height() - Left.Height();
+            return height;
         }
 
         public bool IsRightChild()
