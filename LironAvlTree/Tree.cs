@@ -53,46 +53,72 @@ namespace LironAvlTree
 
         public Node<T> Insert(T value, Node<T> parent)
         {
-            if(parent == null)
+            if (parent == null)
             {
                 return new Node<T>(value);
             }
 
             int holder = value.CompareTo(parent.Value);
 
-            if(holder >= 0)
+            if (holder >= 0)
             {
                 parent.Right = Insert(value, parent.Right); //call right else call left
             }
-            else if(holder < 0)
+            else if (holder < 0)
             {
                 parent.Left = Insert(value, parent.Left);
             }
 
             return Balance(parent);
-            
+
             //update height, return balence
         }
 
-
-        
-            public Node<T> LeftRotate(Node<T> node)
+        public Node<T> Balance(Node<T> node)
+        {
+            if (node.Balence > 1)
             {
-            return null;
-            }
-
-            public Node<T> RightRotate(Node<T> node)
-            {
-            return null;
-            }
-        /*
-            public void BalencingNode()
-            {
-                if (Balence() < -1 || Balence() > 1)
+                if (node.Right.Balence < 0)
                 {
-
+                    RightRotate(node.Right);
+                    //right rotation on node.Right and then left rotation
                 }
+                LeftRotate(node);
             }
-        */
+
+            if (node.Balence < -1)
+            {
+                if (node.Left.Balence > 0)
+                {
+                    LeftRotate(node.Left);
+                }
+                RightRotate(node);
+            }
+
+            return node;
+        }
+
+        public Node<T> LeftRotate(Node<T> node)
+        {
+            var rotate = node.Right;
+            node.Right = rotate.Left;
+            rotate.Left = node;
+
+            return rotate;
+        }
+
+        public Node<T> RightRotate(Node<T> node)
+        {
+            var rotate = node.Left;
+            node.Left = rotate.Right;
+            rotate.Right = node;
+            //height is automatically updated.
+            return rotate;
+
+        }
+        public void Delete(T value)
+        {
+            if(value > )
+        }
     }
 }
